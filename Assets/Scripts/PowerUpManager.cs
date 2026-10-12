@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUpManager : MonoBehaviour
 {
     [SerializeField] private GameObject _powerUpPrefab;
-    private const float _spawnInterval = 3f;
+    private const float _spawnInterval = 2f;
     private Vector2 _min;
     private Vector2 _max;
 
