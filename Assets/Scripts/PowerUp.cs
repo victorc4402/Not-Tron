@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private static readonly string[] types = { "spd_up", "spd_down"};
+    private string _type;
+
+    private void Start()
+    {
+        this._type = types[Random.Range(0, types.Length)];
+    }
+
+    // Update is called once per frame
+    private void Update()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public string GetPowerUpType()
     {
-        
+        return this._type;
     }
 }
