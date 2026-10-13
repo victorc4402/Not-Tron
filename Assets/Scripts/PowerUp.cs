@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    private static readonly string[] types = { "spd_up", "spd_down"};
+    private static readonly string[] types = { "spd_up", "spd_down", "invin"};
     [SerializeField] private Sprite[] _sprites;
     private SpriteRenderer _spriteRenderer;
     private int _typeIndex;

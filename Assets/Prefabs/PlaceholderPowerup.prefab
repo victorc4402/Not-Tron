@@ -107,3 +107,4 @@ MonoBehaviour:
   _sprites:
   - {fileID: -8009648206159543192, guid: 689a49e28f0b83449bdfa089d62aa713, type: 3}
   - {fileID: 3020412358063583826, guid: ade70775030d11a4b93deb532bfc42e7, type: 3}
+  - {fileID: -491652975800025256, guid: ebbae47c9dd33364fb3137254610f965, type: 3}
