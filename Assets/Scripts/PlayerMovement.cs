@@ -1,4 +1,6 @@
 
+using System;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -111,6 +113,24 @@ public class PlayerMovement : MonoBehaviour
         if (newSpeed > 0)
         {
             moveSpeed = newSpeed;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Powerup"))
+        {
+            PowerUp powerUp = collision.GetComponent<PowerUp>();
+            if (powerUp.GetPowerUpType() == "spd_up")
+            {
+                this.SetSpeed(this.moveSpeed += 2f);
+                Destroy(collision.gameObject);
+            }
+            if (powerUp.GetPowerUpType() == "spd_down")
+            {
+                this.SetSpeed(this.moveSpeed -= 2f);
+                Destroy(collision.gameObject);
+            }
         }
     }
 }
