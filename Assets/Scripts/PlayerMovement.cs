@@ -17,8 +17,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private Vector2 _min;
+    private Vector2 _max;
+
     void Start()
     {
+        _min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        _max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+
         rb = GetComponent<Rigidbody2D>();
 
         if (startDirection == true) 
@@ -37,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HandleInput();
-        MovePlayer();
+        MovePlayer();       
+        GetCoordinates();
     }
 
     // Checks which direction the player wants to move
@@ -101,6 +108,16 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = direction * moveSpeed;
     }
 
+    private void GetCoordinates()    
+    {
+        if (transform.position.x < _min.x || transform.position.x > _max.x||transform.position.y < _min.y || transform.position.y > _max.y) 
+        {
+            Debug.Log("Player out of bounds");
+            Destroy(gameObject);
+        }
+
+    }
+
     // Returns the player's current direction
     public Vector2 GetDirection()
     {
@@ -132,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+
     }
 }
 
