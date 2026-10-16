@@ -255,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 518149391}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7707, y: -3.8122, z: 0}
+  m_LocalPosition: {x: -10.71, y: 4.17, z: 0}
   m_LocalScale: {x: 0.12901524, y: 0.13560343, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
-  useWASD: 0
+  useWASD: 1
   startDirection: 0
 --- !u!58 &518149395
 CircleCollider2D:
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 5
-  useWASD: 1
+  useWASD: 0
   startDirection: 1
 --- !u!212 &1663669902
 SpriteRenderer:
@@ -611,7 +611,7 @@ Transform:
   m_GameObject: {fileID: 1663669900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.377, y: -3.82, z: 0}
+  m_LocalPosition: {x: 10.74, y: -4.22, z: 0}
   m_LocalScale: {x: 0.13145976, y: 0.14473747, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
