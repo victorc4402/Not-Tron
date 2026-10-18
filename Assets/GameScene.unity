@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 518149397}
   - component: {fileID: 518149399}
   - component: {fileID: 518149398}
+  - component: {fileID: 518149400}
   m_Layer: 0
   m_Name: player1
   m_TagString: Player
@@ -462,6 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trail
   maxTrailPoints: 50
+  deathSceneName: DeathScreen
 --- !u!68 &518149399
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -505,6 +507,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &518149400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518149391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d47c54d053136d4380cc65a3f1cfe79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutOfBounds
 --- !u!1 &1663669900
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,6 +535,7 @@ GameObject:
   - component: {fileID: 1663669908}
   - component: {fileID: 1663669907}
   - component: {fileID: 1663669906}
+  - component: {fileID: 1663669909}
   m_Layer: 0
   m_Name: player2
   m_TagString: Player
@@ -693,6 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trail
   maxTrailPoints: 50
+  deathSceneName: DeathScreen
 --- !u!68 &1663669907
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -846,6 +862,18 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1663669909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663669900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d47c54d053136d4380cc65a3f1cfe79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OutOfBounds
 --- !u!1 &2096084178
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +900,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096084178}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &2096084180
 Camera:
   m_ObjectHideFlags: 0

@@ -1,38 +1,53 @@
+
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(TrailRenderer))]
 public class Trail : MonoBehaviour
 {
-    //encapsulation!
     private TrailRenderer trailRenderer;
     private EdgeCollider2D edgeCollider;
     private List<Vector2> colliderPosition = new List<Vector2>();
     private GameObject trailColliderObject;
 
     [Header("Trail Settings")]
-    [SerializeField] private int maxTrailPoints = 50; //controls the exact length of the trail
+    [SerializeField] private int maxTrailPoints = 50;
 
-    public int PointCount => trailRenderer != null ? trailRenderer.positionCount : 0;
-    //checks if the trail is active, returns the number of points trails using
+    [Header("Death Settings")]
+    [SerializeField] private string deathSceneName = "DeathScreen";
+    private static bool playerHasDied = false;
+
+    private static string firstPlayerToDie;
+
+    public static string FirstPlayerToDie => firstPlayerToDie;
+
+    public int PointCount => trailRenderer != null
+        ? trailRenderer.positionCount
+        : 0;
 
     private void Awake()
     {
-        //getting encapsulated!
         trailRenderer = GetComponent<TrailRenderer>();
-        
-        //turns off unitys automatic trail time
+
+        // Keep the trail visible until its points are trimmed.
         trailRenderer.time = Mathf.Infinity;
 
-        //new object so collider does not move with object
-        trailColliderObject = new GameObject(gameObject.name + "_TrailCollider");
+        // Create a separate object for the trail collider.
+        trailColliderObject = new GameObject(
+            gameObject.name + "_TrailCollider"
+        );
+
         trailColliderObject.transform.position = Vector3.zero;
-        
+
         edgeCollider = trailColliderObject.AddComponent<EdgeCollider2D>();
         edgeCollider.isTrigger = true;
 
-        TrailCollisionDetector detector = trailColliderObject.AddComponent<TrailCollisionDetector>();
-        //tells collision detector which players trail it is 
+        // Give the detector the configured death scene name.
+        TrailCollisionDetector detector =
+            trailColliderObject.AddComponent<TrailCollisionDetector>();
+
+        detector.SetDeathSceneName(deathSceneName);
     }
 
     private void Update()
@@ -44,17 +59,21 @@ public class Trail : MonoBehaviour
     private void TrimTrailLength()
     {
         int currentCount = trailRenderer.positionCount;
-        //tracks number of points on trial
-        
+
         if (currentCount > maxTrailPoints)
         {
             Vector3[] allPositions = new Vector3[currentCount];
             trailRenderer.GetPositions(allPositions);
-            //all points into allPosition list
 
             Vector3[] trimmedPositions = new Vector3[maxTrailPoints];
-            System.Array.Copy(allPositions, currentCount - maxTrailPoints, trimmedPositions, 0, maxTrailPoints);
-            //keeps only the closet 50 points
+
+            System.Array.Copy(
+                allPositions,
+                currentCount - maxTrailPoints,
+                trimmedPositions,
+                0,
+                maxTrailPoints
+            );
 
             trailRenderer.Clear();
             trailRenderer.AddPositions(trimmedPositions);
@@ -64,15 +83,16 @@ public class Trail : MonoBehaviour
     private void UpdateColliderPosition()
     {
         int pointCount = trailRenderer.positionCount;
-        int headBuffer = 5; //prevents instant spawn death
-        if (pointCount < headBuffer + 2) 
+        int headBuffer = 5;
+
+        // Prevent the player from immediately hitting its own trail.
+        if (pointCount < headBuffer + 2)
         {
             return;
         }
 
         Vector3[] worldPositions = new Vector3[pointCount];
         trailRenderer.GetPositions(worldPositions);
-        //upate new position
 
         colliderPosition.Clear();
 
@@ -82,7 +102,6 @@ public class Trail : MonoBehaviour
         }
 
         edgeCollider.SetPoints(colliderPosition);
-        //setting encapsulated!
     }
 
     private void OnDestroy()
@@ -90,21 +109,66 @@ public class Trail : MonoBehaviour
         if (trailColliderObject != null)
         {
             Destroy(trailColliderObject);
-            //clear colliders when players die
         }
+
+    }
+    public static void KillPlayer(GameObject player, string sceneName)
+    {
+        Debug.Log("KillPlayer called for: " + player.name);
+
+        if (playerHasDied)
+        {
+            Debug.LogWarning("Death blocked: playerHasDied is already true.");
+            return;
+        }
+
+        if (!player.CompareTag("Player"))
+        {
+            Debug.LogWarning(player.name + " does not have the Player tag.");
+            return;
+        }
+
+        firstPlayerToDie = player.name;
+
+        Debug.Log("First player to die: " + firstPlayerToDie);
+        Debug.Log("Loading scene: " + sceneName);
+
+        playerHasDied = true;
+
+        SceneManager.LoadScene(sceneName);
     }
 
 
     private class TrailCollisionDetector : MonoBehaviour
     {
+        private string deathSceneName;
+
+        public void SetDeathSceneName(string sceneName)
+        {
+            deathSceneName = sceneName;
+        }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player")) //if collider has player tag
+            // Only detect collisions with players.
+            if (collision.CompareTag("Player"))
             {
-                Debug.Log(collision.gameObject.name + " died");
-                Destroy(collision.gameObject);
+                Trail.KillPlayer(collision.gameObject, deathSceneName);
             }
+
+            // Prevent repeated death triggers.
+            if (playerHasDied)
+            {
+                return;
+            }
+            firstPlayerToDie = collision.gameObject.name;
+
+            playerHasDied = true;
+
+            Debug.Log(collision.gameObject.name + " died");
+
+            // Switch to the death scene.
+            SceneManager.LoadScene(deathSceneName);
         }
     }
 }
