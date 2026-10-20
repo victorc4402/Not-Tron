@@ -15,6 +15,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    //----variables for time increasing consistently-----
+    [SerializeField] private float speedIncreaseInterval = 5f; 
+    [SerializeField] private float speedIncrement = 0.0000000001f;       
+    private float _timer; //tracks the passing time
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleInput();
         MovePlayer();
+
+        SpeedIncreases();
     }
 
     // Checks which direction the player wants to move
@@ -113,5 +120,21 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = newSpeed;
         }
     }
-}
 
+    //---------method for constant speed increases-------
+    private void SpeedIncreases()
+    {
+        _timer += Time.deltaTime;
+
+        //if 5 seconds passed
+        if (_timer >= speedIncreaseInterval)
+        {
+            _timer = 0f; //reset to zero -> constant calculation
+
+            float newSpeed = moveSpeed + speedIncrement;
+
+            //using the setter for speed!!!
+            SetSpeed(newSpeed);
+        }
+    }
+}

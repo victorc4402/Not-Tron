@@ -4,35 +4,48 @@ using UnityEngine;
 [RequireComponent(typeof(TrailRenderer))]
 public class Trail : MonoBehaviour
 {
-    //encapsulation!
-    private TrailRenderer trailRenderer;
-    private EdgeCollider2D edgeCollider;
-    private List<Vector2> colliderPosition = new List<Vector2>();
-    private GameObject trailColliderObject;
+    //encapsulation!!!
+    private TrailRenderer _trailRenderer;
+    private EdgeCollider2D _edgeCollider;
+    private List<Vector2> _colliderPosition = new List<Vector2>();
+    private GameObject _trailColliderObject;
 
-    [Header("Trail Settings")]
+    private bool _isAlive = true;
+
+
     [SerializeField] private int maxTrailPoints = 50; //controls the exact length of the trail
+    //serializefield just means that the variable is editable in Unity's Inspector
 
-    public int PointCount => trailRenderer != null ? trailRenderer.positionCount : 0;
     //checks if the trail is active, returns the number of points trails using
+    public int PointCount()
+    {
+        if (_trailRenderer != null)
+        {
+            return this._trailRenderer.positionCount;
+        }
+        else
+        {
+            return 0; //else crash, nothing
+        }
+    }
 
     private void Awake()
     {
-        //getting encapsulated!
-        trailRenderer = GetComponent<TrailRenderer>();
+        //goes to unity to find trail renderer component
+        _trailRenderer = GetComponent<TrailRenderer>();
         
         //turns off unitys automatic trail time
-        trailRenderer.time = Mathf.Infinity;
+        _trailRenderer.time = Mathf.Infinity;
 
-        //new object so collider does not move with object
-        trailColliderObject = new GameObject(gameObject.name + "_TrailCollider");
-        trailColliderObject.transform.position = Vector3.zero;
+        //new object so collider does not move with object, on the pts
+        _trailColliderObject = new GameObject(gameObject.name + "_TrailCollider");
+        _trailColliderObject.transform.position = Vector3.zero; //to player
         
-        edgeCollider = trailColliderObject.AddComponent<EdgeCollider2D>();
-        edgeCollider.isTrigger = true;
+        _edgeCollider = _trailColliderObject.AddComponent<EdgeCollider2D>();
+        _edgeCollider.isTrigger = true; //not solid
 
-        TrailCollisionDetector detector = trailColliderObject.AddComponent<TrailCollisionDetector>();
-        //tells collision detector which players trail it is 
+        TrailCollisionDetector detector = _trailColliderObject.AddComponent<TrailCollisionDetector>();
+        //puts unity physics onto poitns
     }
 
     private void Update()
@@ -43,68 +56,73 @@ public class Trail : MonoBehaviour
 
     private void TrimTrailLength()
     {
-        int currentCount = trailRenderer.positionCount;
+        int currentCount = _trailRenderer.positionCount;
         //tracks number of points on trial
         
         if (currentCount > maxTrailPoints)
         {
             Vector3[] allPositions = new Vector3[currentCount];
-            trailRenderer.GetPositions(allPositions);
+            _trailRenderer.GetPositions(allPositions);
             //all points into allPosition list
 
             Vector3[] trimmedPositions = new Vector3[maxTrailPoints];
             System.Array.Copy(allPositions, currentCount - maxTrailPoints, trimmedPositions, 0, maxTrailPoints);
             //keeps only the closet 50 points
 
-            trailRenderer.Clear();
-            trailRenderer.AddPositions(trimmedPositions);
+            _trailRenderer.Clear();
+            _trailRenderer.AddPositions(trimmedPositions);
         }
     }
 
     private void UpdateColliderPosition()
     {
-        int pointCount = trailRenderer.positionCount;
+        int pointCount = _trailRenderer.positionCount; //points from unity
         int headBuffer = 5; //prevents instant spawn death
-        if (pointCount < headBuffer + 2) 
+        if (pointCount < headBuffer) 
         {
             return;
         }
 
         Vector3[] worldPositions = new Vector3[pointCount];
-        trailRenderer.GetPositions(worldPositions);
-        //upate new position
+        _trailRenderer.GetPositions(worldPositions);
+        //upate new poitns to list, from unity
 
-        colliderPosition.Clear();
+        _colliderPosition.Clear();
 
         for (int i = 0; i < pointCount - headBuffer; i++)
         {
-            colliderPosition.Add(worldPositions[i]);
+            _colliderPosition.Add(worldPositions[i]);
+            //wpos points to cpos wo buffer and places colliders on the poitns
         }
 
-        edgeCollider.SetPoints(colliderPosition);
-        //setting encapsulated!
+        _edgeCollider.SetPoints(_colliderPosition);
     }
 
-    private void OnDestroy()
+    public void PlayerDies()
     {
-        if (trailColliderObject != null)
+        if (_trailColliderObject != null)
         {
-            Destroy(trailColliderObject);
-            //clear colliders when players die
+            Destroy(_trailColliderObject);
+            
+            //clears when players die
         }
     }
 
-
-    private class TrailCollisionDetector : MonoBehaviour
+    //encapsulation setter!!!
+    public void SetAlive(bool isAlive)
     {
+        this._isAlive = isAlive;
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        if(isAlive == false)
         {
-            if (collision.CompareTag("Player")) //if collider has player tag
-            {
-                Debug.Log(collision.gameObject.name + " died");
-                Destroy(collision.gameObject);
-            }
+            PlayerDies();
         }
     }
+
+    //encapsulation getter!!!
+    public bool GetAlive()
+    {
+        return this._isAlive;
+    }
+
 }
