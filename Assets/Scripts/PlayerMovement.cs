@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (startDirection == true) 
         {
-            direction = Vector2.up;
+            direction = Vector2.left;
         }
 
         else
