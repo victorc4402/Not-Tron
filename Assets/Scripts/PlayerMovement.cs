@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _min;
     private Vector2 _max;
 
+    //----variables for speed increases over time -> log base 5-----
+    [SerializeField] private float _currentSpeed = 5f;
+    private float _timer;
+
+
     void Start()
     {
         _min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
@@ -162,6 +167,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+    }
+
+    //---------method for speed increases-------
+    private void SpeedIncreases()
+    {
+        _timer += Time.deltaTime;
+
+        float newSpeed = _currentSpeed + Mathf.Log(_timer + 1f, 5f);
+        //timer starts at zero, asymptote at 0
+
+        //using the setter for speed!!!
+        SetSpeed(newSpeed);
     }
 }
 
