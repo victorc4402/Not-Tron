@@ -14,7 +14,6 @@ public class Trail : MonoBehaviour
 
 
     private float _trailDuration = 2.5f; //controls the exact length of the trail, unity timer
-    //serializefield just means that the variable is editable in Unity's Inspector
 
     //checks if the trail is active, returns the number of points trails using
     public int PointCount()
