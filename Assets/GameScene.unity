@@ -255,8 +255,8 @@ Transform:
   m_GameObject: {fileID: 518149391}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.99, y: -2.99, z: 0}
-  m_LocalScale: {x: 0.12901524, y: 0.13560343, z: 1}
+  m_LocalPosition: {x: -0.2093, y: -3.135, z: 0}
+  m_LocalScale: {x: 0.06201201, y: 0.06517866, z: 0.48065645}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -273,9 +273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae1ca4edde4b8a4fb0e9e1345994da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 5
+  moveSpeed: 4
   useWASD: 0
   startDirection: 0
+  _currentSpeed: 5
 --- !u!58 &518149395
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -397,8 +398,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.059791565
-        value: 0.18596458
+        time: 0
+        value: 0.08772087
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -461,7 +462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4b3369adda6a1488c6de1dd1f63414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trail
-  maxTrailPoints: 50
 --- !u!68 &518149399
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -540,9 +540,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae1ca4edde4b8a4fb0e9e1345994da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 5
+  moveSpeed: 4
   useWASD: 1
   startDirection: 1
+  _currentSpeed: 5
 --- !u!212 &1663669902
 SpriteRenderer:
   serializedVersion: 2
@@ -611,8 +612,8 @@ Transform:
   m_GameObject: {fileID: 1663669900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -3, z: 0}
-  m_LocalScale: {x: 0.13145976, y: 0.14473747, z: 1}
+  m_LocalPosition: {x: -2.127, y: -3.1398, z: 0}
+  m_LocalScale: {x: 0.06318697, y: 0.069569, z: 0.48065645}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -692,7 +693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4b3369adda6a1488c6de1dd1f63414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trail
-  maxTrailPoints: 50
 --- !u!68 &1663669907
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -795,7 +795,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.22105217
+        value: 0.08772087
         inSlope: 0
         outSlope: 0
         tangentMode: 0

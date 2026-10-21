@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     { 
         FirstPlayerOutOfBoundsName = null;
     }
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 4f;
     //serializefield just means that the variable is editable in Unity's Inspector
 
     [SerializeField] private bool useWASD = true;
