@@ -14,7 +14,7 @@ public class Trail : MonoBehaviour
 
     private bool _isAlive = true;
 
-    private float _trailDuration = 2.5f; //controls the exact length of the trail, unity timer
+    private float _trailDuration = 3f; //controls the exact length of the trail, unity timer
 
 
     //checks if the trail is active, returns the number of points trails using
