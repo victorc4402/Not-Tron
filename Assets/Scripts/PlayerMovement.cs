@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static string FirstPlayerOutOfBoundsName { get; private set; }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    public static void ResetOutOfBoundsRecord()
+    { 
+        FirstPlayerOutOfBoundsName = null;
+    }
     [SerializeField] private float moveSpeed = 5f;
     //serializefield just means that the variable is editable in Unity's Inspector
 
@@ -112,6 +119,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (transform.position.x < _min.x || transform.position.x > _max.x||transform.position.y < _min.y || transform.position.y > _max.y) 
         {
+            if (FirstPlayerOutOfBoundsName == null)
+            {
+                FirstPlayerOutOfBoundsName = gameObject.name;
+            }
+
             Debug.Log("Player out of bounds");
             Destroy(gameObject);
         }

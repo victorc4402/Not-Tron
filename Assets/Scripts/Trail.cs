@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(TrailRenderer))]
 public class Trail : MonoBehaviour
@@ -9,6 +10,13 @@ public class Trail : MonoBehaviour
     private EdgeCollider2D edgeCollider;
     private List<Vector2> colliderPosition = new List<Vector2>();
     private GameObject trailColliderObject;
+
+    public static string FirstPlayerToDieName { get; private set; }
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    public static void ResetFirstDeath()
+    {
+        FirstPlayerToDieName = null;
+    }
 
     [Header("Trail Settings")]
     [SerializeField] private int maxTrailPoints = 50; //controls the exact length of the trail
@@ -87,6 +95,20 @@ public class Trail : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (FirstPlayerToDieName == null && CompareTag("Player"))
+        {
+            FirstPlayerToDieName = gameObject.name;
+
+            if (gameObject.name == "player1")
+            {
+                SceneManager.LoadScene("player2 win");
+            }
+            else if (gameObject.name == "player2")
+            {
+                SceneManager.LoadScene("player1 win");
+            }
+        }
+
         if (trailColliderObject != null)
         {
             Destroy(trailColliderObject);
