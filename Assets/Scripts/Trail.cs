@@ -13,7 +13,7 @@ public class Trail : MonoBehaviour
     private bool _isAlive = true;
 
 
-    [SerializeField] private int maxTrailPoints = 50; //controls the exact length of the trail
+    private float _trailDuration = 2.5f; //controls the exact length of the trail, unity timer
     //serializefield just means that the variable is editable in Unity's Inspector
 
     //checks if the trail is active, returns the number of points trails using
@@ -34,8 +34,7 @@ public class Trail : MonoBehaviour
         //goes to unity to find trail renderer component
         _trailRenderer = GetComponent<TrailRenderer>();
         
-        //turns off unitys automatic trail time
-        _trailRenderer.time = Mathf.Infinity;
+       
 
         //new object so collider does not move with object, on the pts
         _trailColliderObject = new GameObject(gameObject.name + "_TrailCollider");
@@ -49,29 +48,11 @@ public class Trail : MonoBehaviour
     }
 
     private void Update()
-    {
-        TrimTrailLength();
+    { 
+        //visual time is trailduration -> `1f
+        _trailRenderer.time = _trailDuration;
+
         UpdateColliderPosition();
-    }
-
-    private void TrimTrailLength()
-    {
-        int currentCount = _trailRenderer.positionCount;
-        //tracks number of points on trial
-        
-        if (currentCount > maxTrailPoints)
-        {
-            Vector3[] allPositions = new Vector3[currentCount];
-            _trailRenderer.GetPositions(allPositions);
-            //all points into allPosition list
-
-            Vector3[] trimmedPositions = new Vector3[maxTrailPoints];
-            System.Array.Copy(allPositions, currentCount - maxTrailPoints, trimmedPositions, 0, maxTrailPoints);
-            //keeps only the closet 50 points
-
-            _trailRenderer.Clear();
-            _trailRenderer.AddPositions(trimmedPositions);
-        }
     }
 
     private void UpdateColliderPosition()
@@ -103,7 +84,7 @@ public class Trail : MonoBehaviour
         if (_trailColliderObject != null)
         {
             Destroy(_trailColliderObject);
-            
+
             //clears when players die
         }
     }

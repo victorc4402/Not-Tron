@@ -16,6 +16,7 @@ public class TrailCollisionDetector : MonoBehaviour
                  {
                     //setting isalive!!!
                     playerTrail.SetAlive(false); 
+                    Debug.Log(collision.gameObject.name + " is alive: " + playerTrail.GetAlive());
                 }
 
             }

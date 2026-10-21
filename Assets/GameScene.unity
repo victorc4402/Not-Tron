@@ -231,6 +231,7 @@ MonoBehaviour:
   moveSpeed: 5
   useWASD: 0
   startDirection: 0
+  _currentSpeed: 5
 --- !u!58 &518149395
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -343,7 +344,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 3
+  m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -416,7 +417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4b3369adda6a1488c6de1dd1f63414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trail
-  maxTrailPoints: 50
 --- !u!68 &518149399
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -498,6 +498,7 @@ MonoBehaviour:
   moveSpeed: 5
   useWASD: 1
   startDirection: 1
+  _currentSpeed: 5
 --- !u!212 &1663669902
 SpriteRenderer:
   serializedVersion: 2
@@ -647,7 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4b3369adda6a1488c6de1dd1f63414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trail
-  maxTrailPoints: 50
 --- !u!68 &1663669907
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -740,7 +740,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 3
+  m_Time: 1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3

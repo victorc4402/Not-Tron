@@ -15,10 +15,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    //----variables for time increasing consistently-----
-    [SerializeField] private float speedIncreaseInterval = 5f; 
-    [SerializeField] private float speedIncrement = 0.0000000001f;       
-    private float _timer; //tracks the passing time
+    //----variables for speed increases over time -> log base 5-----
+    [SerializeField] private float _currentSpeed = 5f;
+    private float _timer;
 
     void Start()
     {
@@ -121,20 +120,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //---------method for constant speed increases-------
+    //---------method for speed increases-------
     private void SpeedIncreases()
     {
         _timer += Time.deltaTime;
 
-        //if 5 seconds passed
-        if (_timer >= speedIncreaseInterval)
-        {
-            _timer = 0f; //reset to zero -> constant calculation
+        float newSpeed = _currentSpeed + Mathf.Log(_timer + 1f, 5f);
+        //timer starts at zero, asymptote at 0
 
-            float newSpeed = moveSpeed + speedIncrement;
-
-            //using the setter for speed!!!
-            SetSpeed(newSpeed);
-        }
+        //using the setter for speed!!!
+        SetSpeed(newSpeed);
     }
 }
