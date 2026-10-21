@@ -27,6 +27,7 @@ public class Trail : MonoBehaviour
             return 0; //else crash, nothing
         }
     }
+    
 
     private void Awake()
     {
@@ -87,6 +88,7 @@ public class Trail : MonoBehaviour
             //clears when players die
         }
     }
+
 
     //encapsulation setter!!!
     public void SetAlive(bool isAlive)
