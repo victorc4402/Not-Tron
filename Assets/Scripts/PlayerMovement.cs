@@ -55,6 +55,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HandleInput();
+    }
+
+    void FixedUpdate()
+    {
         MovePlayer();       
         GetCoordinates();
     }
@@ -157,12 +161,12 @@ public class PlayerMovement : MonoBehaviour
             PowerUp powerUp = collision.GetComponent<PowerUp>();
             if (powerUp.GetPowerUpType() == "spd_up")
             {
-                this.SetSpeed(this.moveSpeed += 2f);
+                this.SetSpeed(this.moveSpeed + 2f);
                 Destroy(collision.gameObject);
             }
             if (powerUp.GetPowerUpType() == "spd_down")
             {
-                this.SetSpeed(this.moveSpeed -= 2f);
+                this.SetSpeed(this.moveSpeed - 2f);
                 Destroy(collision.gameObject);
             }
         }

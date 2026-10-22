@@ -7,7 +7,7 @@ public class PowerUp : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private int _typeIndex;
     private string _type;
-    private const int _lifetime = 3;
+    private const int _lifetime = 8;
     private float _timer = 0f;
 
     private void Start()
