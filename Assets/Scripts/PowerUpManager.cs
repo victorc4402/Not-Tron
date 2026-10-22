@@ -22,6 +22,7 @@ public class PowerUpManager : MonoBehaviour
         if (_spawnTimer >= _spawnInterval)
         {
             SpawnPowerUp();
+            SpawnPowerUp();
             _spawnTimer = 0f;
         }
     }
