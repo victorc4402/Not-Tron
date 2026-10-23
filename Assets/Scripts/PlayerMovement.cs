@@ -5,6 +5,64 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private Sprite skin1;
+    private static bool player1Skin1Selected;
+    private static bool player2Skin1Selected;
+    [SerializeField] private Sprite skin2;
+
+    private static bool player1Skin2Selected;
+    private static bool player2Skin2Selected;
+    public static void SelectSkin1(int playerNumber)
+    {
+        if (playerNumber == 1)
+        {
+            player1Skin1Selected = true;
+            player1Skin2Selected = false;
+        }
+        else if (playerNumber == 2)
+        {
+            player2Skin1Selected = true;
+            player2Skin2Selected = false;
+        }
+    }
+
+    public static void SelectSkin2(int playerNumber)
+    {
+        if (playerNumber == 1)
+        {
+            player1Skin1Selected = false;
+            player1Skin2Selected = true;
+        }
+        else if (playerNumber == 2)
+        {
+            player2Skin1Selected = false;
+            player2Skin2Selected = true;
+        }
+    }
+    public static void SelectDefaultSkin(int playerNumber)
+    {
+        if (playerNumber == 1)
+        {
+            player1Skin1Selected = false;
+            player1Skin2Selected = false;
+        }
+        else if (playerNumber == 2)
+        {
+            player2Skin1Selected = false;
+            player2Skin2Selected = false;
+        }
+    }
+
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetSkinSelections()
+    {
+        player1Skin1Selected = false;
+        player2Skin1Selected = false;
+        player1Skin2Selected = false;
+        player2Skin2Selected = false;
+    }
+
     public static string FirstPlayerOutOfBoundsName { get; private set; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -38,6 +96,27 @@ public class PlayerMovement : MonoBehaviour
         _max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
         rb = GetComponent<Rigidbody2D>();
+
+        //START OF EUANS SKIN CHECKER FOR NEW SKINS
+        bool useSkin1 =
+    (gameObject.name == "player1" && player1Skin1Selected) ||
+    (gameObject.name == "player2" && player2Skin1Selected);
+
+        bool useSkin2 =
+            (gameObject.name == "player1" && player1Skin2Selected) ||
+            (gameObject.name == "player2" && player2Skin2Selected);
+
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (useSkin1 && skin1 != null)
+        {
+            spriteRenderer.sprite = skin1;
+        }
+        else if (useSkin2 && skin2 != null)
+        {
+            spriteRenderer.sprite = skin2;
+        }
+        //END OF EUANS ADDED SECTION
 
         if (startDirection == true) 
         {

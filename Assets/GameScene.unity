@@ -273,6 +273,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae1ca4edde4b8a4fb0e9e1345994da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  skin1: {fileID: -5127591641664155159, guid: b1d6c54c24cf93f4f99f5b617e952e01, type: 3}
+  skin2: {fileID: 3380976828245236773, guid: c99a6bb71b29fba4ab0fe1326f1f364f, type: 3}
   moveSpeed: 4
   useWASD: 0
   startDirection: 0
@@ -387,7 +389,7 @@ TrailRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Time: 3
   m_PreviewTimeScale: 1
@@ -540,6 +542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae1ca4edde4b8a4fb0e9e1345994da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  skin1: {fileID: -5127591641664155159, guid: b1d6c54c24cf93f4f99f5b617e952e01, type: 3}
+  skin2: {fileID: 3380976828245236773, guid: c99a6bb71b29fba4ab0fe1326f1f364f, type: 3}
   moveSpeed: 4
   useWASD: 1
   startDirection: 1
@@ -783,7 +787,7 @@ TrailRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Time: 3
   m_PreviewTimeScale: 1

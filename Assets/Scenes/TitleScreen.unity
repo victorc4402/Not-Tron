@@ -484,7 +484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115.1, y: -28.5}
+  m_AnchoredPosition: {x: 148.05005, y: -59.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2044240933
@@ -512,7 +512,12 @@ MonoBehaviour:
 
     enter ====> play
 
-    backspace ====> quit'
+    backspace ====> quit
+
+    RShift ====>
+    P1 Custom
+
+    Lshift ====> P2 Custom'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7c76099f3211b7a4e9c60fa8560fdfab, type: 2}
   m_sharedMaterial: {fileID: 4281930328405333606, guid: 7c76099f3211b7a4e9c60fa8560fdfab, type: 2}
